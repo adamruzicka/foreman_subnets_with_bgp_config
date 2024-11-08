@@ -5,7 +5,7 @@ module ForemanSubnetsWithBGPConfig
     belongs_to :subnet, inverse_of: :subnet_bgp_config
 
     validates :as_local,
-      comparison: { greater_than_or_equal_to: 4200001000, less_than: 4200002000 },
+      inclusion: { in: 4200001000...4200002000 },
       allow_blank: true
     validates :as_remote,
       inclusion: { in: [65529, 65530] },
