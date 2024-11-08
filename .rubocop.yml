@@ -10,6 +10,18 @@ AllCops:
     - 'node_modules/**/*'
     - 'vendor/**/*'
 
+Layout/TrailingEmptyLines:
+  Enabled: false
+
+Style/TrailingCommaInHashLiteral:
+  Enabled: false
+
+Layout/SpaceAfterMethodName:
+  Enabled: false
+
+Layout/SpaceAroundEqualsInParameterDefault:
+  EnforcedStyle: no_space
+
 Layout/ArgumentAlignment:
   EnforcedStyle: with_fixed_indentation
   IndentationWidth: 2
@@ -32,8 +44,4 @@ Style/Documentation:
 
 # Don't enforce frozen string literals
 Style/FrozenStringLiteralComment:
-  Enabled: false
-
-# Support both ruby19 and hash_rockets
-Style/HashSyntax:
   Enabled: false

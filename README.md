@@ -1,77 +1,52 @@
-# ForemanPluginTemplate
+# ForemanSubnetsWithBGPConfig
 
-This repo is an example plugin which you can use as a starting point for developing
-your own Foreman plugins
+Add fields for BGP relevant configuration settings to the Foreman Subnet model.
 
-## Getting Started
+## Installation
 
-First, clone this repo to a directory named for your new plugin
+See [How_to_Install_a_Plugin](https://www.theforeman.org/plugins/#2.Installation)
+for how to install Foreman plugins in general. The following should be sufficient.
 
-    git clone https://github.com/theforeman/foreman_plugin_template foreman_my_plugin
+1. Ensure Foreman will load the plugin by adding it to its bundler Gems collection
+    ```bash
+    echo 'gem "foreman_subnets_with_bgp_config"' >~foreman/bundler.d/foreman_subnets_with_bgp_config.rb
+    chown foreman: ~foreman/bundler.d/foreman_subnets_with_bgp_config.rb
+    ```
+1. Produce the plugin Gem from a recent clone of the source Git repository
+    ```bash
+    git clone git@githut.com:foreman-plugins/foreman_subnets_with_bgp_config.git
+    cd foreman_subnets_with_bgp_config
+    gem build foreman_subnets_with_bgp_config.gemspec
+    ```
+1. Ensure no old versions of the plugin are installed
+    ```bash
+    gem uninstall foreman_subnets_with_bgp_config --version '>= 0'
+    ```
+1. Install the newly generated Gem **without dependencies**, in order to not replace any Gems used by Foreman
+    ```bash
+    gem install --ignore-dependencies foreman_subnets_with_bgp_config-*.gem
+    /bin/rm foreman_subnets_with_bgp_config-*.gem # Cleanup to avoid future conflicts
+    ```
+1. If the plugin is installed for the first time, 
+1. Foreman needs a restart with every newly installed Gem
+    ```bash
+    foreman-maintain service restart
+    ```
 
-Now use the provided script to rewrite all the files in the plugin
+## Usage
 
-    cd foreman_my_plugin
-    ./rename.rb foreman_my_plugin
+Once installed, the management form of Subnets should show additional
+fields for setting Local-AS, Remote-AS and Remote-IP values.
 
-The script will also output the required Bundler line to add the plugin to Foreman.
-Apply this change, and restart Foreman
+## Contributing
 
-Once working, update the README with appropriate information, and publish your plugin!
-
-## Out of the box functionality
-
-This example plugin comes with:
-
-* A model and helper concern
-* An inherited controller
-* A route/view which displays the plugin name
-* A widget for the Dashboard
-* A plugin registration block adding permissions/roles/menu entry
-* A functioning example rake task
-* A functioning example test and factory
-* Functioning internationalization support
-
-These examples show how to add to Foreman in various ways.
-
-## Foreman plugin labeling
-
-With the following line in the ruby gemspec file the gem is marked, that it's a foreman plugin. 
-This is especially necessary if you are using React / JS stuff in webpack directory.
-
-```ruby
-    s.metadata    = { "is_foreman_plugin" => "true" }
-```
-
-### Further examples
-
-The [How to create a plugin](https://github.com/theforeman/foreman/blob/develop/developer_docs/how_to_create_a_plugin.asciidoc)
-wiki page contains a lot of information on supported plugin extension points in
-Foreman and how to use them from a plugin.
-
-### i18n
-
-From your Foreman checkout, run `rake plugin:gettext[foreman_plugin_example]` to
-extract the latest strings, and then inside the plugin checkout run `make -C locale
-tx-update` to pull and merge in the latest translations.  Do this regularly and
-before each release.
-
-Have your .pot file published in Foreman's Transifex project by contacting the
-development team below.
-
-[Translating](http://projects.theforeman.org/projects/foreman/wiki/Translating#Translating-for-developers)
-has more information about writing code with i18n support.
-
-## Getting help
-
-The Foreman developers IRC channel and mailing list are the best places to get help:
-
-* Freenode: #theforeman-dev
-* Community Discourse: <https://community.theforeman.org/>
+Fork and send a Pull Request. Thanks!
 
 ## Copyright
 
-Copyright (c) 2014 Red Hat
+Based off [ForemanPluginTemplate](https://github.com/theforeman/foreman_plugin_template)
+
+Copyright (c) 2024 Xavier Mol
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
