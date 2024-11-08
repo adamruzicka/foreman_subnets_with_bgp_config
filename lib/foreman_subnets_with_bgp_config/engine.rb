@@ -20,7 +20,9 @@ module ForemanSubnetsWithBGPConfig
     end
 
     config.to_prepare do
-      ::Subnet.send :include, ForemanSubnetsWithBGPConfig::SubnetExtensions
+      Subnet::SUBNET_TYPES.keys.each do |subnet_type|
+        subnet_type.to_s.constantize.send :include, ForemanSubnetsWithBGPConfig::SubnetExtensions
+      end
     end
 
     rake_tasks do
