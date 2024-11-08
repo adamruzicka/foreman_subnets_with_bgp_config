@@ -20,7 +20,7 @@ module ForemanSubnetsWithBGPConfig
     end
 
     config.to_prepare do
-      Subnet.send(:include, ForemanSubnetsWithBGPConfig::SubnetExtensions)
+      ::Subnet.send(:include, ForemanSubnetsWithBGPConfig::SubnetExtensions)
     end
 
     rake_tasks do
