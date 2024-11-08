@@ -8,8 +8,10 @@ module ForemanSubnetsWithBGPConfig
       inclusion: { in: 4200001000...4200002000 },
       allow_blank: true
     validates :as_remote,
-      inclusion: { in: [65529, 65530] },
-      message: "%{value} must bei either 65529 or 65530",
+      inclusion: {
+        in: [65529, 65530],
+        message: "%{value} must bei either 65529 or 65530",
+      },
       allow_blank: true
     validates_each :ip_remote do |record, attr, value|
       return true if value.blank?
