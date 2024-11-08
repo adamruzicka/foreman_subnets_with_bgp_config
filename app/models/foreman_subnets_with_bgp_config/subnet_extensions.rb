@@ -4,6 +4,7 @@ module ForemanSubnetsWithBGPConfig
 
     included do
       has_one :subnet_bgp_config,
+        inverse_of: :subnet,
         dependent: :destroy
       accepts_nested_attributes_for :subnet_bgp_config,
         reject_if: :all_blank,
