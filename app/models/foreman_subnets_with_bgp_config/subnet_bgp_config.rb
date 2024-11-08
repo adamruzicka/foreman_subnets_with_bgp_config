@@ -33,6 +33,6 @@ module ForemanSubnetsWithBGPConfig
 
   def everything_or_nothing_is_blank
     subnet.errors.add :base, 'All BGP settings must be either blank or present' unless
-      [as_local, as_remote, ip_remote].all &:blank? || [as_local, as_remote, ip_remote].all &:present?
+      [as_local, as_remote, ip_remote].all(&:blank?) || [as_local, as_remote, ip_remote].all(&:present?)
   end
 end
