@@ -1,10 +1,8 @@
 module ForemanSubnetsWithBGPConfig
   module SubnetExtensions
-    extend ActiveSupport::Concern
-
-    included do
+    def self.included (base)
       has_one :subnet_bgp_config,
-        as: :bgp_config,
+        inverse_of: :subnet,
         dependent: :destroy
       accepts_nested_attributes_for :subnet_bgp_config,
         reject_if: :all_blank,

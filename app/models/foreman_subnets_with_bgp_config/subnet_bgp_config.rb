@@ -3,7 +3,7 @@ require 'ipaddr'
 module ForemanSubnetsWithBGPConfig
   class SubnetBGPConfig < ActiveRecord::Base
     self.table_name = 'subnet_bgp_configs'
-    belongs_to :bgp_config, polymorphic: true
+    belongs_to :subnet, invese_of: :subnet_bgp_config
     validates_presence_of :subnet
 
     validates :as_local,
@@ -28,12 +28,6 @@ module ForemanSubnetsWithBGPConfig
 
     validate :remote_ip_matches_subnet_type
     validate :everything_or_nothing_is_blank
-
-    # Polymorphic associations in combination with single table inheritance (STI) -
-    #   which Foreman's Subnets are - require this trick.
-    def bgp_config_type= (class_name)
-      super(class_name.constantize.base_class.to_s)
-    end
 
     def remote_ip_matches_subnet_type
       return true if ip_remote.blank?
