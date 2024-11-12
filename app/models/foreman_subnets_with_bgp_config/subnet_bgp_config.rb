@@ -3,10 +3,8 @@ require 'ipaddr'
 module ForemanSubnetsWithBGPConfig
   class SubnetBGPConfig < ApplicationRecord
     self.table_name = 'subnet_bgp_configs'
-    belongs_to :subnet
+    belongs_to :subnet, inverse_of: :subnet_bgp_config
     validates_presence_of :subnet
-
-    belongs_to :bgp_config_settings, polymorphic: true
 
     validates :as_local,
       inclusion: { in: 4200001000...4200002000 },

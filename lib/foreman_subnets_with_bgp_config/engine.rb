@@ -16,7 +16,7 @@ module ForemanSubnetsWithBGPConfig
         requires_foreman '>= 3.3.0'
 
         parameter_filter ::Subnet do |config|
-          context.permit bgp_config_attributes: {}
+          context.permit subnet_bgp_config_attributes: {}
         end
       end
     end
