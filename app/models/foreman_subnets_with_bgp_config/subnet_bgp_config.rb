@@ -3,7 +3,7 @@ require 'ipaddr'
 module ForemanSubnetsWithBGPConfig
   class SubnetBGPConfig < ActiveRecord::Base
     self.table_name = 'subnet_bgp_configs'
-    belongs_to :subnet, invese_of: :subnet_bgp_config
+    belongs_to :subnet, inverse_of: :subnet_bgp_config
     validates_presence_of :subnet
 
     validates :as_local,
