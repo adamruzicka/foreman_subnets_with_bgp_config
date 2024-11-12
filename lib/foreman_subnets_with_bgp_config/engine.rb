@@ -15,14 +15,14 @@ module ForemanSubnetsWithBGPConfig
       Foreman::Plugin.register :foreman_subnets_with_bgp_config do
         requires_foreman '>= 3.3.0'
 
-        parameter_filter ::Subnet, :as_local, :as_remote, :ip_remote
+        parameter_filter ::Subnet do |config|
+          context.permit subnet_bgp_config_attributes: {}
+        end
       end
     end
 
     config.to_prepare do
-      Subnet::SUBNET_TYPES.keys.each do |subnet_type|
-        subnet_type.to_s.constantize.send :include, ForemanSubnetsWithBGPConfig::SubnetExtensions
-      end
+      Subnet.send :include, ForemanSubnetsWithBGPConfig::SubnetExtensions
     end
 
     rake_tasks do

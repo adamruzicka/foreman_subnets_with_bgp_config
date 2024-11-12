@@ -1,4 +1,15 @@
 <!-- insert_after "erb[loud]:contains(':boot_mode')" -->
-<%= f.fields_for :subnet_bgp_config do |b| -%>
-  <%= render 'foreman_subnets_with_bgp_config/subnets/_bgp_config', f: b %>
-<% end -%>
+<%=
+  number_f f, :as_local, label: _('Local AS'),
+    min: 0,
+    help_inline: _('Optional: Local autonumous system (AS) ID')
+%>
+<%=
+  number_f f, :as_remote, label: _('Remote AS'),
+    min: 0,
+    help_inline: _('Optional: Remote autonumous system (AS) ID')
+%>
+<%=
+  text_f f, :ip_remote, :label => _('Remote IP'),
+    help_inline: _('Optional: BGP neighbor IP address')
+%>
