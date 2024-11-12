@@ -4,9 +4,12 @@ module ForemanSubnetsWithBGPConfig
 
     included do
       has_one :subnet_bgp_config,
-        inverse_of: :subnet,
+        as: :bgp_config_settings,
         dependent: :destroy
-      accepts_nested_attributes_for :subnet_bgp_config,
+      has_one :bgp_config,
+        through: :subnet_bgp_config,
+        dependent: :destroy
+      accepts_nested_attributes_for :bgp_config,
         reject_if: :all_blank,
         update_only: true
     end
