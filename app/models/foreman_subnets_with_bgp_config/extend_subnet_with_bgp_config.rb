@@ -1,5 +1,5 @@
-module ForemanSubnetsWithBGPConfig
-  module ExtendSubnetWithBGPConfig
+module ForemanSubnetsWithBgpConfig
+  module ExtendSubnetWithBgpConfig
     extend ActiveSupport::Concern
 
     included do
