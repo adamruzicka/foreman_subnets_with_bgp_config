@@ -13,16 +13,19 @@ module ForemanSubnetsWithBGPConfig
 
     initializer 'foreman_subnets_with_bgp_config.register_plugin', :before => :finisher_hook do |_app|
       Foreman::Plugin.register :foreman_subnets_with_bgp_config do
+        Rails.logger.debug 'Register foreman_subnets_with_bgp_config plugin'
         requires_foreman '>= 3.3.0'
 
-        parameter_filter ::Subnet do |config|
-          context.permit subnet_bgp_config_attributes: {}
+        [Subnet::Ipv4, Subnet::Ipv6].each do |s|
+          parameter_filter s do |context|
+            context.permit subnet_bgp_config_attributes: {}
+          end
         end
       end
     end
 
     config.to_prepare do
-      Subnet.include ForemanSubnetsWithBGPConfig::SubnetExtensions
+      [Subnet::Ipv4, Subnet::Ipv6].each { |s| s.include ForemanSubnetsWithBGPConfig::ExtendSubnetWithBGPConfig }
     end
 
     rake_tasks do
