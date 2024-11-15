@@ -15,7 +15,7 @@ module ForemanSubnetsWithBgpConfig
         Rails.logger.debug 'Register foreman_subnets_with_bgp_config plugin'
         requires_foreman '>= 3.3.0'
 
-        [Subnet::Ipv4, Subnet::Ipv6].each do |s|
+        [Subnet, Subnet::Ipv4, Subnet::Ipv6].each do |s|
           parameter_filter s do |context|
             context.permit subnet_bgp_config_attributes: {}
           end
