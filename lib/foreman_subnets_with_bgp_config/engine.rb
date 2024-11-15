@@ -24,7 +24,7 @@ module ForemanSubnetsWithBgpConfig
     end
 
     config.to_prepare do
-      [Subnet::Ipv4, Subnet::Ipv6, Subnet].each { |s| s.include ExtendSubnetWithBgpConfig }
+      Subnet.include ExtendSubnetWithBgpConfig
     end
 
     rake_tasks do
