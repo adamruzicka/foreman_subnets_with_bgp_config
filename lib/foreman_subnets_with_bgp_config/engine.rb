@@ -25,6 +25,7 @@ module ForemanSubnetsWithBgpConfig
 
     config.to_prepare do
       Subnet.include ExtendSubnetWithBgpConfig
+      SubnetsController.send(:prepend, ForemanSubnetsWithBgpConfig::SubnetsControllerExtensions)
     end
 
     rake_tasks do
